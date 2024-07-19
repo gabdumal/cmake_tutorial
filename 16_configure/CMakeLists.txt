@@ -6,33 +6,19 @@ if(${CMAKE_VERSION} VERSION_LESS 3.12)
 endif()
 
 # Properties
-project(ctest_host_system_information
-    LANGUAGES NONE
+project(processor
+    LANGUAGES CXX
 )
 
 include(CMakePrintHelpers)
 
+# Executables
+add_executable(processor_info processor_info.cpp)
+
 foreach(key IN ITEMS
-    NUMBER_OF_LOGICAL_CORES
     NUMBER_OF_PHYSICAL_CORES
-    TOTAL_VIRTUAL_MEMORY
-    AVAILABLE_VIRTUAL_MEMORY
     TOTAL_PHYSICAL_MEMORY
-    AVAILABLE_PHYSICAL_MEMORY
-    IS_64BIT
-    HAS_FPU
-    HAS_MMX
-    HAS_MMX_PLUS
-    HAS_SSE
-    HAS_SSE2
-    HAS_SSE_FP
-    HAS_SSE_MMX
-    HAS_AMD_3DNOW
-    HAS_AMD_3DNOW_PLUS
-    HAS_IA64
     OS_NAME
-    OS_RELEASE
-    OS_VERSION
     OS_PLATFORM
 )
     # query the item ${key} and save its value in the variable _${key}
@@ -43,3 +29,12 @@ foreach(key IN ITEMS
     )
     cmake_print_variables("_${key}")
 endforeach()
+
+# and PROJECT_BINARY_DIR as its include directories
+target_include_directories(processor_info
+    PRIVATE
+    ${PROJECT_BINARY_DIR}
+)
+
+# configure the file
+configure_file(config.h.in config.h @ONLY)
