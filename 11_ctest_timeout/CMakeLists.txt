@@ -6,7 +6,7 @@ if(${CMAKE_VERSION} VERSION_LESS 3.12)
 endif()
 
 # Properties
-project(ctest_temeout
+project(ctest_timeout
     LANGUAGES CXX
 )
 
