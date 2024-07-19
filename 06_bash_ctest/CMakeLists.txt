@@ -6,7 +6,7 @@ if(${CMAKE_VERSION} VERSION_LESS 3.12)
 endif()
 
 # Properties
-project(hello_ctest
+project(bash_ctest
     LANGUAGES CXX
 )
 
